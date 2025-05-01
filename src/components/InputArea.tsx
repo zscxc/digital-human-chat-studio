@@ -3,23 +3,20 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Send, StopCircle } from "lucide-react";
-import { AudioRecorder } from "./AudioRecorder";
 import { cn } from "@/lib/utils";
 
 interface InputAreaProps {
   onSendMessage: (message: string) => void;
   onStopGeneration: () => void;
   isGenerating: boolean;
-  onAudioRecorded: (audioBlob: Blob) => void;
-  onAudioUploaded: (file: File) => void;
+  onAudioRecorded?: (audioBlob: Blob) => void;
+  onAudioUploaded?: (file: File) => void;
 }
 
 export function InputArea({
   onSendMessage,
   onStopGeneration,
-  isGenerating,
-  onAudioRecorded,
-  onAudioUploaded
+  isGenerating
 }: InputAreaProps) {
   const [message, setMessage] = React.useState("");
   
@@ -72,11 +69,6 @@ export function InputArea({
           )}
         </div>
       </div>
-      
-      <AudioRecorder 
-        onRecordingComplete={onAudioRecorded}
-        onFileUpload={onAudioUploaded}
-      />
     </div>
   );
 }

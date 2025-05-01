@@ -5,8 +5,10 @@ import { VideoDisplay } from "@/components/VideoDisplay";
 import { ControlPanel } from "@/components/ControlPanel";
 import { InputArea } from "@/components/InputArea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
+import { Link } from "react-router-dom";
+import { Mic } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const { toast } = useToast();
@@ -51,27 +53,7 @@ const Index = () => {
       });
     }, 2000);
   };
-  
-  const handleAudioRecorded = (audioBlob: Blob) => {
-    // Here you would normally send the audio to your backend for STT
-    toast({
-      title: "Audio Recorded",
-      description: "Audio recording received. In a real application, this would be sent for speech-to-text processing.",
-    });
-    
-    // For demo purposes, simulate a message after recording
-    setTimeout(() => {
-      handleSendMessage("This is a simulated message from voice input.");
-    }, 1000);
-  };
-  
-  const handleAudioUploaded = (file: File) => {
-    toast({
-      title: "Audio Uploaded",
-      description: `File "${file.name}" received. In a real application, this would be sent for processing.`,
-    });
-  };
-  
+
   const handleStopGeneration = () => {
     setIsGenerating(false);
     setIsStreaming(false);
@@ -85,25 +67,33 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background py-6">
       <div className="container max-w-[1400px] mx-auto px-4">
-        <header className="mb-6">
+        <header className="mb-6 flex justify-between items-center">
           <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Digital Human Chat Studio
           </h1>
+          <Button variant="outline" asChild>
+            <Link to="/audio">
+              <Mic className="mr-2 h-4 w-4" />
+              Audio Controls
+            </Link>
+          </Button>
         </header>
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Column - Digital Human Video */}
-          <Card className="lg:col-span-6 xl:col-span-7 shadow-md border-2">
-            <CardContent className="p-0 h-[600px]">
-              <VideoDisplay isStreaming={isStreaming} videoSrc={videoSrc} />
-            </CardContent>
-          </Card>
+          <div className="lg:col-span-7 xl:col-span-8">
+            <Card className="shadow-md border-2 h-[650px]">
+              <CardContent className="p-0 h-full">
+                <VideoDisplay isStreaming={isStreaming} videoSrc={videoSrc} />
+              </CardContent>
+            </Card>
+          </div>
           
           {/* Right Column - Chat and Controls */}
-          <div className="lg:col-span-6 xl:col-span-5 flex flex-col gap-6">
+          <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6">
             {/* Chat History */}
             <Card className="shadow-md border-2 flex-grow">
-              <CardContent className="p-0 h-[350px] flex flex-col">
+              <CardContent className="p-0 h-[400px] flex flex-col">
                 <ChatHistory messages={messages} />
               </CardContent>
             </Card>
@@ -115,31 +105,29 @@ const Index = () => {
                   onSendMessage={handleSendMessage}
                   onStopGeneration={handleStopGeneration}
                   isGenerating={isGenerating}
-                  onAudioRecorded={handleAudioRecorded}
-                  onAudioUploaded={handleAudioUploaded}
                 />
+              </CardContent>
+            </Card>
+          
+            {/* Controls */}
+            <Card className="shadow-sm">
+              <CardContent className="p-4">
+                <h3 className="text-lg font-medium mb-4">Settings</h3>
+                <ControlPanel 
+                  onAvatarChange={setAvatar}
+                  onModeChange={setMode}
+                  onChunkSizeChange={(values) => setChunkSize(values[0])}
+                  onTtsModuleChange={setTtsModule}
+                  onVoiceChange={setVoice}
+                  chunkSize={chunkSize}
+                />
+                <div className="mt-3 text-xs text-muted-foreground text-center">
+                  This is a frontend demo. Connect to your backend for full digital human functionality.
+                </div>
               </CardContent>
             </Card>
           </div>
         </div>
-        
-        {/* Controls at the bottom */}
-        <Card className="mt-6 shadow-sm">
-          <CardContent className="p-4">
-            <h3 className="text-lg font-medium mb-4">Settings</h3>
-            <ControlPanel 
-              onAvatarChange={setAvatar}
-              onModeChange={setMode}
-              onChunkSizeChange={(values) => setChunkSize(values[0])}
-              onTtsModuleChange={setTtsModule}
-              onVoiceChange={setVoice}
-              chunkSize={chunkSize}
-            />
-            <div className="mt-3 text-xs text-muted-foreground text-center">
-              This is a frontend demo. Connect to your backend for full digital human functionality.
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
