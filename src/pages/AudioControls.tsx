@@ -13,15 +13,15 @@ const AudioControls = () => {
   const handleAudioRecorded = (audioBlob: Blob) => {
     // Here you would normally send the audio to your backend for STT
     toast({
-      title: "Audio Recorded",
-      description: "Audio recording received. In a real application, this would be sent for speech-to-text processing.",
+      title: "音频已录制",
+      description: "已收到音频录制。在实际应用中，这将被发送进行语音转文本处理。",
     });
   };
   
   const handleAudioUploaded = (file: File) => {
     toast({
-      title: "Audio Uploaded",
-      description: `File "${file.name}" received. In a real application, this would be sent for processing.`,
+      title: "音频已上传",
+      description: `文件"${file.name}"已收到。在实际应用中，这将被发送进行处理。`,
     });
   };
 
@@ -32,20 +32,20 @@ const AudioControls = () => {
           <Button variant="ghost" asChild className="mb-4">
             <Link to="/">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Chat
+              返回聊天
             </Link>
           </Button>
           <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Audio Controls
+            语音克隆
           </h1>
         </header>
         
         <Card className="shadow-md border-2 mb-6">
           <CardContent className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Voice Recording & Upload</h2>
+            <h2 className="text-xl font-semibold mb-4">语音录制与上传</h2>
             <p className="text-muted-foreground mb-6">
-              Record audio or upload audio files to interact with the digital human assistant.
-              Recordings will be processed for speech-to-text conversion.
+              录制音频或上传音频文件，以与数字人助手互动。
+              录音将进行语音转文本处理。
             </p>
             
             <AudioRecorder 
@@ -58,19 +58,19 @@ const AudioControls = () => {
         
         <Card className="shadow-md border-2">
           <CardContent className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Audio Processing Information</h2>
+            <h2 className="text-xl font-semibold mb-4">音频处理信息</h2>
             <div className="space-y-4">
               <div>
-                <h3 className="font-medium">Recording Tips</h3>
+                <h3 className="font-medium">录音提示</h3>
                 <ul className="list-disc pl-5 text-muted-foreground">
-                  <li>Speak clearly and at a moderate pace</li>
-                  <li>Recordings are limited to 10 seconds by default</li>
-                  <li>Minimize background noise for better results</li>
+                  <li>清晰地说话，语速适中</li>
+                  <li>录音默认限制为10秒</li>
+                  <li>尽量减少背景噪音以获得更好的结果</li>
                 </ul>
               </div>
               
               <div>
-                <h3 className="font-medium">Supported Audio Formats</h3>
+                <h3 className="font-medium">支持的音频格式</h3>
                 <ul className="list-disc pl-5 text-muted-foreground">
                   <li>WAV (.wav)</li>
                   <li>MP3 (.mp3)</li>

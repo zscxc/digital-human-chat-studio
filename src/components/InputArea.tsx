@@ -38,7 +38,7 @@ export function InputArea({
     <div className="space-y-2">
       <div className="relative">
         <Textarea 
-          placeholder="Type your message here..." 
+          placeholder="在此输入您的消息..." 
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -54,7 +54,7 @@ export function InputArea({
               className="h-8 rounded-full"
             >
               <StopCircle className="h-4 w-4 mr-1" />
-              Stop
+              停止
             </Button>
           ) : (
             <Button 
@@ -64,7 +64,7 @@ export function InputArea({
               className="h-8 rounded-full"
             >
               <Send className="h-4 w-4 mr-1" />
-              Send
+              发送
             </Button>
           )}
         </div>
