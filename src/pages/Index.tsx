@@ -84,62 +84,62 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background py-6">
-      <div className="container max-w-6xl mx-auto px-4">
-        <header className="mb-8">
+      <div className="container max-w-[1400px] mx-auto px-4">
+        <header className="mb-6">
           <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
             Digital Human Chat Studio
           </h1>
         </header>
         
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          {/* Left Column - Chat History */}
-          <Card className="lg:col-span-3 shadow-md border-2">
-            <CardContent className="p-0 h-[500px] flex flex-col">
-              <ChatHistory messages={messages} />
-            </CardContent>
-          </Card>
-          
-          {/* Right Column - Video Display */}
-          <Card className="lg:col-span-2 shadow-md border-2">
-            <CardContent className="p-0 h-[500px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Left Column - Digital Human Video */}
+          <Card className="lg:col-span-6 xl:col-span-7 shadow-md border-2">
+            <CardContent className="p-0 h-[600px]">
               <VideoDisplay isStreaming={isStreaming} videoSrc={videoSrc} />
             </CardContent>
           </Card>
+          
+          {/* Right Column - Chat and Controls */}
+          <div className="lg:col-span-6 xl:col-span-5 flex flex-col gap-6">
+            {/* Chat History */}
+            <Card className="shadow-md border-2 flex-grow">
+              <CardContent className="p-0 h-[350px] flex flex-col">
+                <ChatHistory messages={messages} />
+              </CardContent>
+            </Card>
+            
+            {/* Input Area */}
+            <Card className="shadow-sm">
+              <CardContent className="p-4">
+                <InputArea 
+                  onSendMessage={handleSendMessage}
+                  onStopGeneration={handleStopGeneration}
+                  isGenerating={isGenerating}
+                  onAudioRecorded={handleAudioRecorded}
+                  onAudioUploaded={handleAudioUploaded}
+                />
+              </CardContent>
+            </Card>
+          </div>
         </div>
         
-        <div className="mt-6 space-y-6">
-          {/* Controls */}
-          <Card className="shadow-sm">
-            <CardContent className="p-6">
-              <h3 className="text-lg font-medium mb-4">Settings</h3>
-              <ControlPanel 
-                onAvatarChange={setAvatar}
-                onModeChange={setMode}
-                onChunkSizeChange={(values) => setChunkSize(values[0])}
-                onTtsModuleChange={setTtsModule}
-                onVoiceChange={setVoice}
-                chunkSize={chunkSize}
-              />
-            </CardContent>
-          </Card>
-          
-          {/* Input Area */}
-          <Card className="shadow-sm">
-            <CardContent className="p-6">
-              <InputArea 
-                onSendMessage={handleSendMessage}
-                onStopGeneration={handleStopGeneration}
-                isGenerating={isGenerating}
-                onAudioRecorded={handleAudioRecorded}
-                onAudioUploaded={handleAudioUploaded}
-              />
-              
-              <div className="mt-3 text-xs text-muted-foreground text-center">
-                This is a frontend demo. Connect to your backend for full digital human functionality.
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Controls at the bottom */}
+        <Card className="mt-6 shadow-sm">
+          <CardContent className="p-4">
+            <h3 className="text-lg font-medium mb-4">Settings</h3>
+            <ControlPanel 
+              onAvatarChange={setAvatar}
+              onModeChange={setMode}
+              onChunkSizeChange={(values) => setChunkSize(values[0])}
+              onTtsModuleChange={setTtsModule}
+              onVoiceChange={setVoice}
+              chunkSize={chunkSize}
+            />
+            <div className="mt-3 text-xs text-muted-foreground text-center">
+              This is a frontend demo. Connect to your backend for full digital human functionality.
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

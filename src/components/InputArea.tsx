@@ -38,7 +38,7 @@ export function InputArea({
   };
   
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       <div className="relative">
         <Textarea 
           placeholder="Type your message here..." 
@@ -46,7 +46,7 @@ export function InputArea({
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
           disabled={isGenerating}
-          className="pr-20 min-h-[80px] resize-none"
+          className="pr-20 min-h-[70px] resize-none"
         />
         <div className="absolute bottom-2 right-2">
           {isGenerating ? (
